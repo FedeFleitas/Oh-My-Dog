@@ -3,7 +3,7 @@ import { GET_DOGS, GET_DOG_DETAILS, FILTER_DOGS, GET_TEMPERAMENTS } from '../act
 const initialState = {
   dogsToShow: [],
   searchedDogs:[],
-  dogDetails: {},
+  dogDetails: [],
   temperaments: [],
 };
 
@@ -15,9 +15,10 @@ export default function rootReducer(state = initialState, action){
               dogsToShow: action.payload
         }
         case GET_DOG_DETAILS:
+          let found = state.dogsToShow.filter((element) => element.id === Number(action.payload));
           return {
             ...state,
-            moviesLoaded: action.payload.Search
+            dogDetails: found[0]
         }
         case FILTER_DOGS:
           return {

@@ -8,7 +8,7 @@ export let getDogs = (dog) => {
         return (dispatch) => {
             return axios.get('http://localhost:3001/dogs?name=' + dog)
             .then((dogRes) => {
-                console.log("response: ", dogRes)
+                console.log("response query: ", dogRes.data)
                 dispatch({
                     type: GET_DOGS,
                     payload: dogRes.data
