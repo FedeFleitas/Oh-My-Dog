@@ -39,8 +39,8 @@ router.get('/', async (req, res, next) => {
                         const [dbResponse, apiResponse] = response;
                         const breeds = dbResponse.concat(apiResponse.data);
                         console.log(breeds)
-                        breeds.length > 0 ? res.send(breeds) : res.send("Breed not found")
-                    })
+                        breeds.length > 0 ? res.send([...breeds]) : res.send("Breed not found")
+                    });
         }
     } catch (err) {
         res.send('Error desconocido')
