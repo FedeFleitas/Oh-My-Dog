@@ -3,12 +3,11 @@
     z-index: 200;
     width: 100vw;
     height: 100vh;
-    /* background-color: rgba(0, 0, 0, 0.726); */
+    background-color: rgba(0, 0, 0, 0.52);
     display: -webkit-flex;
     display: flex;
     -webkit-justify-content: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.87)!important
+            justify-content: center;
 }
 .dogDetails{
     display: inline-block;

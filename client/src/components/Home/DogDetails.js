@@ -22,7 +22,7 @@ export default function DogDetails({ match }) {
   useEffect(() => {
 
     if (dogDetailsState.id) {
-      if(dogDetailsState.id === Number(match.params.id)) {
+      if(dogDetailsState.id === Number(match.params.id) || dogDetailsState.id === match.params.id) {
         setFoundDog(true) 
       }
     }
@@ -33,25 +33,34 @@ export default function DogDetails({ match }) {
       <div className={styles.dogDetails}>
         <NavLink exact to="/dogs" className={styles.button}>X</NavLink>
         {foundDog && <div>
-          {dogDetailsState.image && <img src={dogDetailsState.image.url} alt={`${dogDetailsState.name}`}/>}
+          {dogDetailsState.image.url ? <img src={dogDetailsState.image.url} alt={`${dogDetailsState.name}`}/> : <img src={dogDetailsState.image} alt={`${dogDetailsState.name}`}/> }
           <h1>{dogDetailsState.name}</h1>
           {dogDetailsState.temperament && <h2>Temperament: {dogDetailsState.temperament}</h2>}
           <div className={styles.measures}>
             <div className={styles.weight}>
                 <h2>Weight</h2>
                 <select name="Weight">
-                  {dogDetailsState.weight.imperial && <option value="1">{dogDetailsState.weight.imperial} Lbs.</option>}
-                  {dogDetailsState.weight.metric && <option value="2">{dogDetailsState.weight.metric} Kg</option>}
+                  {dogDetailsState.weight.imperial 
+                    ? <option value="1">{dogDetailsState.weight.imperial} Lbs.</option> 
+                    : <option value="1">{dogDetailsState.weight}</option> }
+                  {dogDetailsState.weight.metric
+                    ? <option value="2">{dogDetailsState.weight.metric} Kg.</option>
+                    : ""}
                 </select>
             </div>
+
             <div className={styles.height}>
-              <h2>Height</h2>
-              <select name="Height">
-                {dogDetailsState.weight.imperial && <option value="1">{dogDetailsState.height.imperial} Lbs.</option>}
-                {dogDetailsState.weight.metric && <option value="2">{dogDetailsState.height.metric} Kg</option>}
-              </select>
+                <h2>Weight</h2>
+                <select name="Height">
+                  {dogDetailsState.height.imperial 
+                    ? <option value="1">{dogDetailsState.height.imperial} Lbs.</option> 
+                    : <option value="1">{dogDetailsState.height}</option> }
+                  {dogDetailsState.height.metric
+                    ? <option value="2">{dogDetailsState.height.metric} Kg.</option>
+                    : ""}
+                </select>
             </div>
-            </div>
+         </div>
           {dogDetailsState.life_span && <h3>Lifespan: {dogDetailsState.life_span}</h3>}
         </div>}
       </div>

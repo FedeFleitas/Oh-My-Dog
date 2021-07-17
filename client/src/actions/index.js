@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const GET_DOGS = 'GET_DOGS', GET_DOG_DETAILS='GET_DOG_DETAILS', FILTER_DOGS = 'FILTER_DOGS', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
+export const GET_DOG = 'GET_DOG', GET_DOGS = 'GET_DOGS', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS',GET_DOG_DETAILS='GET_DOG_DETAILS', FILTER_DOGS = 'FILTER_DOGS';
 
 
 export let getDogs = (dog) => {
@@ -8,9 +8,8 @@ export let getDogs = (dog) => {
         return (dispatch) => {
             return axios.get('http://localhost:3001/dogs?name=' + dog)
             .then((dogRes) => {
-                console.log("response query: ", dogRes.data)
                 dispatch({
-                    type: GET_DOGS,
+                    type: GET_DOG,
                     payload: dogRes.data
                 });
             });
@@ -35,6 +34,18 @@ export let getDogDetails = (id) => {
     }
 }
 
+export function getTemperaments() {
+    return (dispatch) => {
+        return axios.get('http://localhost:3001/temperaments')
+        .then((temps) => {
+            dispatch({
+                type: GET_TEMPERAMENTS,
+                payload: temps.data
+            });
+        });
+    }
+}
+
 export let filterDogs = (payload) => {
     return {
         type: FILTER_DOGS,
@@ -42,11 +53,3 @@ export let filterDogs = (payload) => {
     };
 };
 
-export let getTemperaments = () => {
-    return (dispatch) => {
-        axios.get(`http://localhost:3001/temperaments`)
-        .then((response) => {
-          dispatch({type: GET_TEMPERAMENTS, payload: {json: response}});
-        });
-      } 
-};

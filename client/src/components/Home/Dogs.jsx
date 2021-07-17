@@ -10,6 +10,7 @@ export let Dogs = () => {
   //global states
   const dogsToShow = useSelector((state) => state.dogsToShow);
   const dispatch = useDispatch();
+
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
@@ -111,9 +112,9 @@ export default function PaginationRender(dogsToShow) {
       {dogsToShow?.map((dog) => {
         return (
           <div key={dog.id} className={styles.dogs}>
-            <NavLink exact to={`/dogs/${dog.id}`}>  
-              <h1>{dog.name}</h1>
-             {dog.image.url&& <img src={dog.image.url} alt='Not found' />}
+            <NavLink exact to={`/dogs/details/${dog.id}`}>
+              {dog.name && <h1>{dog.name}</h1>}
+              {dog.image.url ? <img src={dog.image.url} alt='Not found' /> : <img src={dog.image} alt='Not found'/>}
               {dog.temperament && <p>{dog.temperament}</p>}
             </NavLink>
           </div>

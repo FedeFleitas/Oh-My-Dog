@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import React, { useState,  } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 //import { NavLink } from 'react-router-dom'
 import { getDogs } from "../../actions";
 import style from './SearchBar.module.css';
 
-export default function SearchBar(props) {
+export default function SearchBar() {
 
-    const [dogState, setDogState] = useState("");
-    const dispatch = useDispatch();
-
+    //local state
+    const [searchDog, setSearchDog] = useState("");
+    const dispatch = useDispatch();  
+    
     const handleClick = (e) => {
         e.preventDefault();
-        console.log("dogState: ", dogState);
-        dispatch(getDogs(dogState));
-        setDogState("");
+        dispatch(getDogs(searchDog));
+        setSearchDog("");
     }
-
+    
     return (
         <div className={style.searchbar}>
             <input className={style.input}
                 type='text'
                 placeholder='Search here!'
-                value = {dogState}
-                onChange={ (event) => setDogState(event.target.value) }
+                value = {searchDog}
+                onChange={ (event) => setSearchDog(event.target.value) }
             />                
             <button onClick={handleClick} type='submit' className={style.submit}>
                 Search

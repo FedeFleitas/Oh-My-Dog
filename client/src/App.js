@@ -13,14 +13,13 @@ function App() {
   return (
     <div className="App">
       <Route exact path="/" component={LandingPage} />
-      <Route path='/dogs' render={() => <Nav onSearch={"onSearch"} />} />
-      <Route exact path="/dogs" component={Dogs} />
-
+      <Route exact path="/dogs/details/:id" component={DogDetails} />
+      <Route path='/dogs' component={Nav} />
     <Switch>
       <Route exact path="/dogs/create" component={CreateDog} />
-      <Route exact path="/dogs/:id" component={DogDetails} />
+      <Route path="/dogs" component={Dogs} />
     </Switch>
-    </div>
+  </div>
   );
 }
 

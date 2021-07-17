@@ -28,6 +28,7 @@
     height: 100%;
 }
 .dogs{
+    text-decoration: 'none';
     margin: 0;
     padding: 0;
     list-style: none;
@@ -35,6 +36,7 @@
     flex-flow: row;
     align-items: center;
     height: 100%;
+    color:red
 }
 .createDogs{
     margin: 0;
