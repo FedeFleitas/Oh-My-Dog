@@ -17,6 +17,7 @@ function App() {
       <Route path='/dogs' component={Nav} />
     <Switch>
       <Route exact path="/dogs/create" component={CreateDog} />
+      <Route path="/dogs/:search" component={Dogs} />
       <Route path="/dogs" component={Dogs} />
     </Switch>
   </div>

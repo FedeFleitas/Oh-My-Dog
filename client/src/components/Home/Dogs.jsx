@@ -23,6 +23,9 @@ export let Dogs = () => {
     setCurrentPage(Number(event.target.id))
   }
 
+  useEffect(() => {dispatch(getDogs())}, [dispatch])
+  
+
   const PAGES = [];
   for (let i = 1; i <= Math.ceil(dogsToShow.length / itemsPerPage); i++) {
     PAGES.push(i);
@@ -83,7 +86,8 @@ export let Dogs = () => {
 
   return (
     <div>
-      {PaginationRender(currentItems)}
+      {console.log(currentItems), 
+      PaginationRender(currentItems)}
       <ul className={styles.pageNumbers}>
         <li>
           <button onClick={handlePrevButton}
@@ -106,10 +110,10 @@ export let Dogs = () => {
   )
 }
 
-export default function PaginationRender(dogsToShow) {
+export default function PaginationRender(items) {
   return (
     <div>
-      {dogsToShow?.map((dog) => {
+      {items?.map((dog) => {
         return (
           <div key={dog.id} className={styles.dogs}>
             <NavLink exact to={`/dogs/details/${dog.id}`}>
@@ -122,4 +126,4 @@ export default function PaginationRender(dogsToShow) {
       })}
     </div>
   )
-};
+}; 

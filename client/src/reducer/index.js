@@ -14,14 +14,17 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         dogsToShow: action.payload
       }
+
     case GET_DOG:
       action.payload.map((dog) => {
-        if (!dog.image) {
+        if (!dog.image && dog.reference_image_id) {
           let image_id = dog.reference_image_id;
           dog.image = `https://cdn2.thedogapi.com/images/${image_id}.jpg`
           console.log(dog)
           return dog
         }
+        dog.image = `https://icon-library.com/images/not-found-icon/not-found-icon-4.jpg`
+
       });      
       return {
         ...state,
