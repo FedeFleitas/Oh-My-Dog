@@ -4,6 +4,7 @@ require("dotenv").config();
 const axios = require('axios');
 const { API, API_KEY } = process.env;
 const { Dog } = require('../db.js');
+const { Op } = require('sequelize')
 
 //============== Routes ================//
 
@@ -15,32 +16,34 @@ router.get('/', async (req, res, next) => {
         const { name } = req.query;
 
         if (!name) {
-                let db = await Dog.findAll();
-                let api = await axios.get(`${API}?api_key=${API_KEY}`);
-                console.log('entre a /Dogs')
+            let db = await Dog.findAll();
+            let api = await axios.get(`${API}?api_key=${API_KEY}`);
+            console.log('entre a /Dogs')
 
-                Promise.all([db, api])
-                    .then((response) => {
-                        const [dbResponse, apiResponse] = response;
-                        const breeds = dbResponse.concat(apiResponse.data);
-                        res.send(breeds);
-                    });
-        } else {
-                let db = await Dog.findAll({
-                    where: {
-                        name: name,
-                    },
+            Promise.all([db, api])
+                .then((response) => {
+                    const [dbResponse, apiResponse] = response;
+                    const breeds = dbResponse.concat(apiResponse.data);
+                    res.send(breeds);
                 });
-                let api = await axios.get(`${API}/search?name=${name}&api_key=${API_KEY}`);
-                console.log('entre a /Dogs queryyy')
+        } else {
+            let db = await Dog.findAll({
+                where: {
+                    name: {
+                        [Op.iLike]: `%${name}`
+                    }
+                },
+            });
+            let api = await axios.get(`${API}/search?name=${name}&api_key=${API_KEY}`);
+            console.log('entre a /Dogs queryyy')
 
-                Promise.all([db, api])
-                    .then((response) => {
-                        const [dbResponse, apiResponse] = response;
-                        const breeds = dbResponse.concat(apiResponse.data);
-                        console.log(breeds)
-                        breeds.length > 0 ? res.send([...breeds]) : res.send("Breed not found")
-                    });
+            Promise.all([db, api])
+                .then((response) => {
+                    const [dbResponse, apiResponse] = response;
+                    const breeds = dbResponse.concat(apiResponse.data);
+                    console.log(breeds)
+                    breeds.length > 0 ? res.send([...breeds]) : res.send("Breed not found")
+                });
         }
     } catch (err) {
         res.send('Error desconocido')
@@ -62,11 +65,12 @@ router.get('/:id', async (req, res, next) => {
             return Dog.findByPk(id)
                 .then((dbRes) => {
                     dbRes.name
-                    ? res.send(dbRes)
-                    : res.send('Invalid id')})
+                        ? res.send(dbRes)
+                        : res.send('Invalid id')
+                })
                 .catch((err) => next(err));
         };
-    }catch(err){
+    } catch (err) {
         next(err)
     }
 });
