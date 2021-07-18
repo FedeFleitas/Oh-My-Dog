@@ -1,30 +1,24 @@
 import axios from 'axios'
 
-export const GET_DOG = 'GET_DOG', GET_DOGS = 'GET_DOGS', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS',GET_DOG_DETAILS='GET_DOG_DETAILS', FILTER_DOGS = 'FILTER_DOGS';
+export const GET_DOGS = 'GET_DOGS', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS',GET_DOG_DETAILS='GET_DOG_DETAILS', FILTER_DOGS = 'FILTER_DOGS';
 
 
 export let getDogs = (dog) => {
-    if(dog){
-        return (dispatch) => {
-            return axios.get('http://localhost:3001/dogs?name=' + dog)
-            .then((dogRes) => {
-                dispatch({
-                    type: GET_DOG,
-                    payload: dogRes.data
-                });
-            });
-        }    
-    } else {
-        return (dispatch) => {
-            return axios.get('http://localhost:3001/dogs')
-            .then((dogs) => {
-                dispatch({
-                    type: GET_DOGS,
-                    payload: dogs.data
-                });
-            });
+    
+    return (dispatch) => {
+        let url = 'http://localhost:3001/dogs';
+        if(dog){
+            url = `http://localhost:3001/dogs?name=${dog}`
         }
-    }
+        return axios.get(url)
+        .then((dogRes) => {
+            dispatch({
+                type: GET_DOGS,
+                payload: dogRes.data
+            });
+        });
+    }    
+  
 }
 
 export let getDogDetails = (id) => {

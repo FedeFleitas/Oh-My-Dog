@@ -1,4 +1,4 @@
-import { GET_DOGS, GET_DOG, GET_DOG_DETAILS, GET_TEMPERAMENTS, FILTER_DOGS } from '../actions/index.js';
+import { GET_DOGS, GET_DOG_DETAILS, GET_TEMPERAMENTS, FILTER_DOGS } from '../actions/index.js';
 
 const initialState = {
   dogsToShow: [],
@@ -10,21 +10,13 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_DOGS:
-      return {
-        ...state,
-        dogsToShow: action.payload
-      }
-
-    case GET_DOG:
       action.payload.map((dog) => {
         if (!dog.image && dog.reference_image_id) {
           let image_id = dog.reference_image_id;
           dog.image = `https://cdn2.thedogapi.com/images/${image_id}.jpg`
-          console.log(dog)
-          return dog
-        }
+        } else if(!dog.image && !dog.reference_image_id){
         dog.image = `https://icon-library.com/images/not-found-icon/not-found-icon-4.jpg`
-
+        }
       });      
       return {
         ...state,
