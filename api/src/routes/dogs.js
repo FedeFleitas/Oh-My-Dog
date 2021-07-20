@@ -3,7 +3,7 @@ const router = Router();
 require("dotenv").config();
 const axios = require('axios');
 const { API, API_KEY } = process.env;
-const { Dog } = require('../db.js');
+const { Dog, Temperament } = require('../db.js');
 const { Op } = require('sequelize')
 
 //============== Routes ================//
@@ -16,7 +16,18 @@ router.get('/', async (req, res, next) => {
         const { name } = req.query;
 
         if (!name) {
-            let db = await Dog.findAll();
+            let db = await Dog.findAll({
+                include: {
+                    model: Temperament,
+                    attributes: {
+                        include: ['name'],
+                        exclude: ['createdAt', 'updatedAt']
+                    },
+                    through: {
+                        attributes: []
+                    }
+                }
+            });
             let api = await axios.get(`${API}?api_key=${API_KEY}`);
             console.log('entre a /Dogs')
 
@@ -33,6 +44,16 @@ router.get('/', async (req, res, next) => {
                         [Op.iLike]: `%${name}`
                     }
                 },
+                include: {
+                    model: Temperament,
+                    attributes: {
+                        include: ['name'],
+                        exclude: ['createdAt', 'updatedAt']
+                    },
+                    through: {
+                        attributes: []
+                    }
+                }
             });
             let api = await axios.get(`${API}/search?name=${name}&api_key=${API_KEY}`);
             console.log('entre a /Dogs queryyy')
@@ -42,7 +63,7 @@ router.get('/', async (req, res, next) => {
                     const [dbResponse, apiResponse] = response;
                     const breeds = dbResponse.concat(apiResponse.data);
                     console.log(breeds)
-                    breeds.length > 0 ? res.send([...breeds]) : res.send("Breed not found")
+                    breeds.length > 0 ? res.send([...breeds]) : res.send(['Breed Not Found']);
                 });
         }
     } catch (err) {

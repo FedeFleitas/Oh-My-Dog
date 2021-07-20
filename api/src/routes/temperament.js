@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
         let allTemperaments = [...dataArr].filter(el => !!el );   
 
         await Temperament.bulkCreate(
-            allTemperaments.map(temp => {return {id: uuidv4(), name: temp}                       
+            allTemperaments.map(temp => {return {name: temp}                       
         }));
 
         const dbTemperaments = await Temperament.findAll()

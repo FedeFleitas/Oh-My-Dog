@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     weight: {
       type: DataTypes.STRING,
