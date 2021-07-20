@@ -24,5 +24,10 @@ export const validate = (input) => {
     //URL image
     if (!input.image) errors.image = "URL image is required";
     else if (/^[a-z]{0,255}$/.test(input.image)) errors.image = "URL value is too large";
+
+    //type measure
+    if (!input.typeWeight) errors.typeWeight = "Measure system is required";
+    if (!input.typeHeight) errors.typeHeight = "Measure system is required";
+  
     return errors;
 }

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import Logo from "../../img/dog.png"
 import SearchBar from './SearchBar';
+import Order from '../order/Order'
 
 export default function Nav() {
     return (
@@ -23,6 +24,9 @@ export default function Nav() {
             </nav>
             <div>
                 <SearchBar/>
+            </div>
+            <div>
+                <Order />
             </div>
         </header>
     )

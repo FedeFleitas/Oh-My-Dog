@@ -10,21 +10,31 @@ export let Dogs = () => {
   //global states
   const dogsToShow = useSelector((state) => state.dogsToShow);
   const dispatch = useDispatch();
-
+console.log(dogsToShow)
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
 
   const [maxPageNumberLimits, setMaxPageNumberLimits] = useState(5);
   const [minPageNumberLimits, setMinPageNumberLimits] = useState(0);
-  const pageNumberLimits= 5;
+  const pageNumberLimits = 5;
 
   let handleClick = (event) => {
     setCurrentPage(Number(event.target.id))
   }
 
-  useEffect(() => {dispatch(getDogs())}, [dispatch])
-  
+  useEffect(() => { dispatch(getDogs()) }, [dispatch])
+  if(typeof dogsToShow[0] === 'string') return (<h1>Sorry, breed not found!</h1>);
+
+
+  dogsToShow[0] && dogsToShow?.map((e) => {
+    if (e.id.length > 4 && e.temperaments) {
+      e.temperament = ""
+      for (let i = 0; i < e.temperaments.length; i++) {
+        e.temperament += e.temperaments[i].name.toString() + ", "
+      }
+    }
+  })
 
   const PAGES = [];
   for (let i = 1; i <= Math.ceil(dogsToShow.length / itemsPerPage); i++) {
@@ -51,9 +61,10 @@ export let Dogs = () => {
     }
   })
 
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(getDogs())
-  }, [dispatch])
+  }, [dispatch]) */
+
 
   const handlePrevButton = () => {
     setCurrentPage(currentPage - 1)
@@ -69,15 +80,15 @@ export let Dogs = () => {
       setMinPageNumberLimits(minPageNumberLimits + pageNumberLimits)
     }
   }
- 
-  let pageIncrementButton = null; 
-  if(PAGES.length > maxPageNumberLimits) {
+
+  let pageIncrementButton = null;
+  if (PAGES.length > maxPageNumberLimits) {
     pageIncrementButton = <li onClick={handleNextButton}>&hellip;</li>
   }
-  let pageDecrementButton = null; 
-  if(minPageNumberLimits >= 1) {
+  let pageDecrementButton = null;
+  if (minPageNumberLimits >= 1) {
     pageDecrementButton = <li onClick={handlePrevButton}>&hellip;</li>
-  } 
+  }
 
   const handleLoadMore = () => {
     setitemsPerPage(itemsPerPage + 4)
@@ -86,12 +97,12 @@ export let Dogs = () => {
 
   return (
     <div>
-      {console.log(currentItems), 
-      PaginationRender(currentItems)}
+      {console.log(currentItems),
+        PaginationRender(currentItems)}
       <ul className={styles.pageNumbers}>
         <li>
           <button onClick={handlePrevButton}
-          disabled={currentPage === PAGES[0] ? true : false}
+            disabled={currentPage === PAGES[0] ? true : false}
           >Prev</button>
         </li>
         {pageDecrementButton}
@@ -99,7 +110,7 @@ export let Dogs = () => {
         {pageIncrementButton}
         <li>
           <button onClick={handleNextButton}
-          disabled={currentPage === PAGES[PAGES.length-1] ? true : false}
+            disabled={currentPage === PAGES[PAGES.length - 1] ? true : false}
           >Next</button>
         </li>
       </ul>
@@ -110,6 +121,7 @@ export let Dogs = () => {
   )
 }
 
+
 export default function PaginationRender(items) {
   return (
     <div>
@@ -118,7 +130,7 @@ export default function PaginationRender(items) {
           <div key={dog.id} className={styles.dogs}>
             <NavLink exact to={`/dogs/details/${dog.id}`}>
               {dog.name && <h1>{dog.name}</h1>}
-              {dog.image.url ? <img src={dog.image.url} alt='Not found' /> : <img src={dog.image} alt='Not found'/>}
+              {dog.image.url ? <img src={dog.image.url} alt='Not found' /> : <img src={dog.image} alt='Not found' />}
               {dog.temperament && <p>{dog.temperament}</p>}
             </NavLink>
           </div>
@@ -126,4 +138,4 @@ export default function PaginationRender(items) {
       })}
     </div>
   )
-}; 
+};
