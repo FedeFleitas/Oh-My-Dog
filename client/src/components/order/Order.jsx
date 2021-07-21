@@ -9,6 +9,7 @@ import styles from './order.module.css';
 export default function Order() {
 
     const dispatch = useDispatch();
+    
     //a-z
     let orderAsc = (e) => {
         e.preventDefault()
@@ -21,27 +22,37 @@ export default function Order() {
     }
 
     //menor peso
+    /* let orderDesc = (e) => {
+        e.preventDefault()
+        dispatch(getZA())
+    } */
     //mayor peso
 
     //temp
+
     //origen api / DB
     function handleSelect(e) {
         if (e.target.value === "null") {
-          return alert("Please insert a valid value");
+            return alert("Please insert a valid value");
         } else {
-          dispatch(getSource(e.target.value));
+            dispatch(getSource(e.target.value));
         }
-      }
+    }
 
 
     return (
         <>
-        <div>
-            <label >Order by: </label>
-            <button onClick={(e) => orderAsc(e)}>a-z</button>
-            <button onClick={(e) => orderDesc(e)}>z-a</button>
-        </div>
-        <div>
+                <label >Order your dogs </label>
+            <div>
+                <label >By name: </label>
+                <button onClick={(e) => orderAsc(e)}>A-Z</button>
+                <button onClick={(e) => orderDesc(e)}>Z-A</button>
+            </div>
+            <div>
+                <label >By bre </label>
+                <button onClick={(e) => orderAsc(e)}>a-z</button>
+                <button onClick={(e) => orderDesc(e)}>z-a</button>
+            </div>
             <div>
                 <form>
                     <label className={styles.label}>Source</label>
@@ -54,7 +65,6 @@ export default function Order() {
                     </select>
                 </form>
             </div>
-        </div>
         </>
     )
 }

@@ -6,11 +6,13 @@ import styles from './LandingPage.module.css';
 export default function LandingPage() {
   return (
     <div className={styles.background}>
-      <h1>Landing Page</h1>
-      <NavLink exact to="/dogs" className="EntryButton">Home</NavLink>
-      <footer className={styles.footer} >
-        <h2>Made with ❤ by Federico Fleitas</h2>
-      </footer>
+      <div><h1 className={styles.welcome}>Welcome to <br/> the Dog's World!</h1></div>
+      <NavLink exact to="/dogs" className={styles.EntryButton} >Home</NavLink>
+      <div className={styles.footer}>
+        <footer >
+          <h2>Made with <span>❤</span> by Federico Fleitas</h2>
+        </footer>
+      </div>
     </div>
   )
 };

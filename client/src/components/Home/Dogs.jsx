@@ -5,7 +5,6 @@ import { getDogs } from '../../actions'
 import styles from './Dogs.module.css';
 
 
-
 export let Dogs = () => {
   //global states
   const dogsToShow = useSelector((state) => state.dogsToShow);
@@ -60,10 +59,6 @@ console.log(dogsToShow)
       return null
     }
   })
-
-/*   useEffect(() => {
-    dispatch(getDogs())
-  }, [dispatch]) */
 
 
   const handlePrevButton = () => {

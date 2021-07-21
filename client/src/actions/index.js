@@ -18,7 +18,6 @@ export let getDogs = (dog) => {
                 });
             });
     }
-
 }
 
 export let getDogDetails = (id) => {
@@ -76,7 +75,6 @@ export let getZA = () => {
                 })
             })
     }
-
 };
 export let getSource = (value) => {
     if (value === "DB") {
