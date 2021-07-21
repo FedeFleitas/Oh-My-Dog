@@ -67,10 +67,10 @@ export default function DogDetails({ match }) {
               <h2>Height</h2>
               <select name="Height">
                 {dogDetailsState[0].height.imperial
-                  ? <option value="1">{dogDetailsState[0].height.imperial} Ft.</option>
+                  ? <option value="1">{dogDetailsState[0].height.imperial} In.</option>
                   : <option value="1">{dogDetailsState[0].height}</option>}
                 {dogDetailsState[0].height.metric
-                  ? <option value="2">{dogDetailsState[0].height.metric} Mt.</option>
+                  ? <option value="2">{dogDetailsState[0].height.metric} Cm.</option>
                   : ""}
               </select>
             </div>

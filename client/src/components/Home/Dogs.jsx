@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getDogs } from '../../actions'
 import styles from './Dogs.module.css';
+import logo from '../../img/loading....gif'
 
 
 export let Dogs = () => {
   //global states
   const dogsToShow = useSelector((state) => state.dogsToShow);
   const dispatch = useDispatch();
-console.log(dogsToShow)
+  console.log(dogsToShow)
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
@@ -23,7 +24,14 @@ console.log(dogsToShow)
   }
 
   useEffect(() => { dispatch(getDogs()) }, [dispatch])
-  if(typeof dogsToShow[0] === 'string') return (<h1>Sorry, breed not found!</h1>);
+  if (typeof dogsToShow[0] === 'string') {
+    return (
+      <div>
+        <h1>Sorry, breed not found!</h1>
+        <img src={logo} alt='breed not found' />
+      </div>
+    )
+  };
 
 
   dogsToShow[0] && dogsToShow?.map((e) => {
@@ -122,10 +130,10 @@ export default function PaginationRender(items) {
     <div>
       {items?.map((dog) => {
         return (
-          <div key={dog.id} className={styles.dogs}>
-            <NavLink exact to={`/dogs/details/${dog.id}`}>
-              {dog.name && <h1>{dog.name}</h1>}
+          <div className={styles.cards} key={dog.id} >
+            <NavLink exact to={`/dogs/details/${dog.id}`} className={styles.dogs}>
               {dog.image.url ? <img src={dog.image.url} alt='Not found' /> : <img src={dog.image} alt='Not found' />}
+              {dog.name && <h1>{dog.name}</h1>}
               {dog.temperament && <p>{dog.temperament}</p>}
             </NavLink>
           </div>

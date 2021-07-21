@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import Logo from "../../img/dog.png"
+import Logo from "../../img/logotype.png"
 import SearchBar from './SearchBar';
 import Order from '../order/Order'
 
@@ -12,14 +12,14 @@ export default function Nav() {
                 <img id="logoHenry" src={Logo} className={styles.logoImg} alt="logotype" />
             </NavLink>
             <nav className={styles.routes}>
-                <div className={styles.inicio}>
-                    <NavLink to="/">Inicio</NavLink>
+                <div >
+                    <NavLink to="/" className={styles.inicio}>Inicio</NavLink>
                 </div>
-                <div className={styles.dogs}>
-                  <NavLink to="/dogs">Dogs</NavLink>
+                <div >
+                  <NavLink to="/dogs" className={styles.dogs}>Dogs</NavLink>
                 </div>
-                <div className={styles.createDog}>
-                    <NavLink to="/dogs/create">Create Dog</NavLink> 
+                <div >
+                    <NavLink to="/dogs/create" className={styles.createDog}>Create Dog</NavLink> 
                 </div>
             </nav>
             <div>

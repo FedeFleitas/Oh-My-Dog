@@ -9,7 +9,7 @@ import styles from './order.module.css';
 export default function Order() {
 
     const dispatch = useDispatch();
-    
+
     //a-z
     let orderAsc = (e) => {
         e.preventDefault()
@@ -42,28 +42,31 @@ export default function Order() {
 
     return (
         <>
+            <div className={styles.order}>
                 <label >Order your dogs </label>
-            <div>
-                <label >By name: </label>
-                <button onClick={(e) => orderAsc(e)}>A-Z</button>
-                <button onClick={(e) => orderDesc(e)}>Z-A</button>
-            </div>
-            <div>
-                <label >By bre </label>
-                <button onClick={(e) => orderAsc(e)}>a-z</button>
-                <button onClick={(e) => orderDesc(e)}>z-a</button>
-            </div>
-            <div>
-                <form>
-                    <label className={styles.label}>Source</label>
-                    <br />
-                    <select className={styles.select} onChange={handleSelect}>
-                        <option value="null">Select</option>
-                        <option value="DB">DB</option>
-                        <option value="API">API</option>
-                        <option value="ALL">ALL</option>
-                    </select>
-                </form>
+                <div>
+                    <label >By name: </label>
+                    <button onClick={(e) => orderAsc(e)}>A-Z</button>
+                    <button onClick={(e) => orderDesc(e)}>Z-A</button>
+                </div>
+                <div>
+                    <label >By weight </label>
+                    <button onClick={(e) => orderAsc(e)}>Asc</button>
+                    <button onClick={(e) => orderDesc(e)}>Des</button>
+                </div>
+                <div>
+                    <form>
+                        <label className={styles.label}>Filter by  </label>
+                        {/* <br /> */}
+                        <select className={styles.select} onChange={handleSelect}>
+                            <option value="null">Select</option>
+                            <option value="DB">Created</option>
+                            <option value="API">Existing</option>
+                            <option value="API">Temperament</option>
+                            <option value="ALL">ALL</option>
+                        </select>
+                    </form>
+                </div>
             </div>
         </>
     )

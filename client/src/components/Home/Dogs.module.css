@@ -3,19 +3,33 @@
 }
 .dogs{
     display: inline-block;
-    color: #000000;
-    background-color: #d4d3d3;
+    color: #131392;
+    background-color: #faca51;
     border-radius: 15px;  
-    width: 300px;  
+    width: 320px;  
     height: 450px;
+    text-decoration: none;
     margin-inline: 8px;
     margin-top: 10px;
     margin-bottom: 20px;
 }
 .dogs img {
-    height: 280px;
-    width: 300px;
+    height: 300px;
+    width: 320px;
     object-fit: fill;
+}
+.dogs h1 {
+    font-size: 23px;
+    margin: 5px;
+}
+.dogs p{
+    font-size: 17px;
+    margin: 7px;
+    text-align: center;
+}
+.cards{
+    display: inline-flex;
+    padding-bottom: 10px;
 }
 .pageNumbers{
     list-style: none;
@@ -25,17 +39,18 @@
     margin-right: 1.8rem;
 }
 .pageNumbers li {
+    background-color: #faca51;
     padding: 10px;
-    border: 1px solid #fffc62;
+    border: 1px solid #ffffff;
     cursor: pointer;    
 }
 .pageNumbers li.active {
-    background-color: rgb(8, 255, 82);
-    color: rgb(214, 0, 0);
+    background-color: #131393;
+    color:#ffffff;
 }
 .pageNumbers li.button {
-    background-color: #f5ff62;
-    color: rgb(126, 126, 126);
+    background-color: #faca51;
+    color: #131393;
     border: none;
     font-size:1.5rem;
     cursor: pointer;
@@ -45,12 +60,16 @@
     color:#ffffff;
 }
 .loadmore {
-    padding: 0.8rem;
-    background-color:transparent;
-    color:#300050;
+    padding: 0.5rem;
+    background-color: transparent;
+    color: #300050;
     font-size: 1rem;
     border: 1px solid #000000;
-    cursor: pointer;   
-    margin-right: 0.5rem;
-
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-left: 10px;
+}
+.loadmore:hover {
+    background-color: #dfdfdf;
 }

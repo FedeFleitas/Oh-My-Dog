@@ -111,113 +111,112 @@ export default function CreateDog() {
 
   return (
     <div className={styles.createDog}>
+      <span className={styles.createText}>Create your Dog!</span>
       <div className={styles.form}>
-        <span className={styles.createText}>Create your Dog!</span>
         <form onSubmit={handleSubmit}>
+
+          <div className={styles.input} >
+            <label>Name</label>
+            <input type="text" name="name"
+              id="name" value={input.name}
+              onChange={handleInputChange} />
+            {errors.name && (<div className={styles.error} ><p className={styles.p} >{errors.name}</p></div>)}
+          </div>
+
+
+          <div className={styles.height} >
+            <label>Min height</label>
+            <input type="number" id="minHeight"
+              name="minHeight" value={input.minHeight}
+              onChange={handleInputChange} />
+
+
+            <label>Max height</label>
+            <input type="number" id="maxHeight"
+              name="maxHeight" value={input.maxHeight}
+              onChange={handleInputChange} />
+
+            <select value={input.typeHeight} name='typeHeight' onChange={handleInputChange}>
+              <option name='typeHeight' value="Ft">In.</option>
+              <option name='typeHeight' value="Mt">Cm.</option>
+              <option name='typeHeight' defaultValue value="">Select type</option>
+            </select>
+            {errors.minHeight && (<div className={styles.error} ><p className={styles.p} >{errors.minHeight}</p></div>)}
+            {errors.maxHeight && (<div className={styles.error} ><p className={styles.p} >{errors.maxHeight}</p></div>)}
+            {errors.typeHeight && (<div className={styles.error} ><p className={styles.p} >{errors.typeHeight}</p></div>)}
+          </div>
+
+          <div className={styles.weight} >
+            <label>Min weight</label>
+            <input type="number" id="minWeight"
+              name="minWeight" value={input.minWeight}
+              onChange={handleInputChange} />
+
+            <label>Max weight</label>
+            <input type="number" id="maxWeight"
+              name="maxWeight" value={input.maxWeight}
+              onChange={handleInputChange} />
+            <select value={input.typeWeight} name='typeWeight' onChange={handleInputChange}>
+              <option name='typeWeight' value="Lb.">Pounds</option>
+              <option name='typeWeight' value="Kg.">Kg</option>
+              <option name='typeWeight' defaultValue value="">Select type</option>
+            </select>
+            <br />
+            {errors.minWeight && (<div className={styles.error} ><p className={styles.p} >{errors.minWeight}</p></div>)}
+            {errors.maxWeight && (<div className={styles.error} ><p className={styles.p} >{errors.maxWeight}</p></div>)}
+            {errors.typeWeight && (<div className={styles.error} ><p className={styles.p} >{errors.typeWeight}</p></div>)}
+          </div>
+
+
+          <div className={styles.input} >
+            <label>Life Span</label>
+            <input type="number" id="life_span"
+              name="life_span" value={input.life_span}
+              onChange={handleInputChange} /> years
+            {errors.life_span && (<div className={styles.error} ><p className={styles.p} >{errors.life_span}</p></div>)}
+          </div>
+
           <div>
-
-
-            <div className={styles.input} >
-              <label>Name</label>
-              <input type="text" name="name"
-                id="name" value={input.name}
-                onChange={handleInputChange} />
-              {errors.name && (<div className={styles.error} ><p className={styles.p} >{errors.name}</p></div>)}
-            </div>
-
-
-            <div className={styles.input} >
-              <label>Min height</label>
-              <input type="number" id="minHeight"
-                name="minHeight" value={input.minHeight}
-                onChange={handleInputChange} />
-
-              {errors.minHeight && (<div className={styles.error} ><p className={styles.p} >{errors.minHeight}</p></div>)}
-
-              <label>Max height</label>
-              <input type="number" id="maxHeight"
-                name="maxHeight" value={input.maxHeight}
-                onChange={handleInputChange} />
-              {errors.maxHeight && (<div className={styles.error} ><p className={styles.p} >{errors.maxHeight}</p></div>)}
-
-              <select value={input.typeHeight} name='typeHeight' onChange={handleInputChange}>
-                <option name='typeHeight' value="Ft">Ft.</option>
-                <option name='typeHeight' value="Mt">Mt.</option>
-                <option name='typeHeight' defaultValue value="">Select type</option>
-              </select>
-              {errors.typeHeight && (<div className={styles.error} ><p className={styles.p} >{errors.typeHeight}</p></div>)}
-            </div>
-
-            <div className={styles.input} >
-              <label>Min weight</label>
-              <input type="number" id="minWeight"
-                name="minWeight" value={input.minWeight}
-                onChange={handleInputChange} />
-              {errors.minWeight && (<div className={styles.error} ><p className={styles.p} >{errors.minWeight}</p></div>)}
-
-              <label>Max weight</label>
-              <input type="number" id="maxWeight"
-                name="maxWeight" value={input.maxWeight}
-                onChange={handleInputChange} />
-              {errors.maxWeight && (<div className={styles.error} ><p className={styles.p} >{errors.maxWeight}</p></div>)}
-              <select value={input.typeWeight} name='typeWeight' onChange={handleInputChange}>
-                <option name='typeWeight' value="Lb.">Pounds</option>
-                <option name='typeWeight' value="Kg.">Kg</option>
-                <option name='typeWeight' defaultValue value="">Select type</option>
-              </select>
-              {errors.typeWeight && (<div className={styles.error} ><p className={styles.p} >{errors.typeWeight}</p></div>)}
-
-            </div>
-
-            <div className={styles.input} >
-              <label>Life Span</label>
-              <input type="number" id="life_span"
-                name="life_span" value={input.life_span}
-                onChange={handleInputChange} /> years
-              {errors.life_span && (<div className={styles.error} ><p className={styles.p} >{errors.life_span}</p></div>)}
-            </div>
-
-            <div>
-              <label>URL Image:</label>
-              <input
-                className={`${styles.image}`}
-                type="text" id='image' name="image"
-                placeholder="https://dogs.com/image/yourdogpicture.jpg"
-                value={input.image}
-                onChange={handleInputChange}
-              />
-              {errors.image && (<p className={styles.danger}>{errors.image}</p>)}
-            </div>
-            <br />
-            <div className={styles.allTemps}>
-              <label>Temperaments:</label>
-              {
-                temperaments?.map((temp, index) => (
-                  <div key={index}>
-                    <input className={styles.temperaments}
-                      type="checkbox"
-                      name={temp}
-                      onChange={handleCheckChange}
-                      value={input.temperaments} />
-                    <label>{temp}</label>
-                  </div>
-                ))
-              }
-            </div>
-            {errors.temperaments && (<p className={styles.danger}>{errors.temperaments}</p>)}
-
-            <br />
-
-            {Object.keys(errors).length > 0 || input.name.length === 0
-              ? <button type="submit" disabled={true} >Create your Dog!</button>
-              : <div>
-                <button
-                  type="submit"
-                  id="submit"
-                  className={styles.button}>Create your Dog!</button>
-              </div>
+            <label>URL Image:</label>
+            <input
+              className={`${styles.image}`}
+              type="text" id='image' name="image"
+              placeholder="https://dogs.com/image/yourdogpicture.jpg"
+              value={input.image}
+              onChange={handleInputChange}
+            />
+            {errors.image && (<p className={styles.danger}>{errors.image}</p>)}
+          </div>
+          <br />
+          <div className={styles.allTemps}>
+            <label>Temperaments:</label>
+            {
+              temperaments?.map((temp, index) => (
+                <div key={index}>
+                  <input className={styles.temperaments}
+                    type="checkbox"
+                    name={temp}
+                    onChange={handleCheckChange}
+                    value={input.temperaments} />
+                  <label>{temp}</label>
+                </div>
+              ))
             }
           </div>
+          {errors.temperaments && (<p className={styles.danger}>{errors.temperaments}</p>)}
+
+          <br />
+
+          {Object.keys(errors).length > 0 || input.name.length === 0
+            ? <button type="submit" disabled={true} >Create your Dog!</button>
+            : <div>
+              <button
+                type="submit"
+                id="submit"
+                className={styles.button}>Create your Dog!</button>
+            </div>
+          }
+
         </form>
       </div>
     </div>

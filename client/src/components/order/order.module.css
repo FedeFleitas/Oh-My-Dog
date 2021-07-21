@@ -1,3 +1,14 @@
+
+.order {
+    text-align: center;
+    color: #131392;
+    position: absolute;
+    top: 3%;
+    right: 3%;
+}
+.order label{
+    color: #131392;    
+}
 .select {
-    padding: 5px
+    color:#131392
 }

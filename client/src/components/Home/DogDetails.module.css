@@ -11,19 +11,27 @@
 }
 .dogDetails{
     display: inline-block;
-    color: #000000;
-    background-color: #d4d3d3;
+    color: #131393;
+    background-color: #ffffff;
     border-radius: 15px;  
     width: 500px;  
     height: auto;
     margin-top: 10px;
     margin-bottom: 20px;
 }
+.dogDetails h2{
+    margin: 2px;
+    font-size: 17px;
+}
+.dogDetails h3{
+    margin: 2px
+}
 
 .dogDetails img {
-    height: 280px;
-    width: 300px;
+    height: 400px;
+    width: 500px;
     object-fit: fill;
+    object-fit: contain;
 }
 
 .weight{
@@ -37,10 +45,12 @@
 }
 .measures{
     display: inline-block;
+    
 }
 .measures select{
-    background-color:red;
-    margin: 10px;
+    background-color:#ffffff;
+    margin: 9px;
+    border: outset;
     
 }
 .button{
@@ -48,8 +58,13 @@
     background-color:red;
     margin-left: 28rem;
     border-radius: 5px;
-    color: #000000;
+    color: #ffffff;
     padding: 15px 20px;
     display: table;
     margin-left: 50rem;
+    text-decoration: none;
+}
+.button:hover{
+    box-shadow: 0 0 28px rgba(255, 0, 0, 0.781);
+    
 }
