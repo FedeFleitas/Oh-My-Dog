@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
     try {
         let id = uuidv4()
         createNewDog = await Dog.create({ name, height, image, weight, life_span, id })
-        await createNewDog.setTemperaments(temperaments)
+        await createNewDog.setTemperaments(temperaments);
     } catch (error) {
         next(error)
     };
