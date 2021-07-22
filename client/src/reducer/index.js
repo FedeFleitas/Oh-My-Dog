@@ -1,4 +1,4 @@
-import { GET_DOGS, GET_DOG_DETAILS, GET_TEMPERAMENTS, ORDER_AL } from '../actions/index.js';
+import { GET_DOGS, GET_DOG_DETAILS, GET_TEMPERAMENTS, ORDER_AL, ORDER_WEIGHT, FILTER, ALL, DB, API } from '../actions/index.js';
 
 const initialState = {
   dogsToShow: [],
@@ -10,7 +10,7 @@ const initialState = {
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
     case GET_DOGS:
-      if (typeof action.payload[0] !='string') {
+      if (typeof action.payload[0] != 'string') {
         let pay = [...action.payload];
         pay.map((dog) => {
           if (!dog.image && dog.reference_image_id) {
@@ -23,7 +23,8 @@ export default function rootReducer(state = initialState, action) {
       }
       return {
         ...state,
-        dogsToShow: action.payload
+        dogsToShow: action.payload,
+        filtered: action.payload
       }
 
     case GET_DOG_DETAILS:
@@ -34,9 +35,46 @@ export default function rootReducer(state = initialState, action) {
       }
 
     case ORDER_AL:
+
+      let filtered = ''
+      action.payload === 'ZA' ? filtered = [...state.filtered].sort((b, a) => {
+        if (a.name > b.name) return 1
+        if (a.name < b.name) return -1
+        return 0;
+      }) : filtered = [...state.filtered].sort((a, b) => {
+        if (a.name > b.name) return 1
+        if (a.name < b.name) return -1
+        return 0;
+      })
       return {
         ...state,
-        dogsToShow: action.payload
+        filtered: filtered
+      }
+
+    case ORDER_WEIGHT:
+      console.log(state.filtered)
+      let filteredByWeight = [];
+      action.payload === 'ASC' ? filteredByWeight= [...state.filtered].sort(function (a, b) {
+        let pesoA, pesoB;
+        a.weight.imperial ? pesoA = a.weight.imperial : pesoA = a.weight;
+        b.weight.imperial ? pesoB = b.weight.imperial : pesoA = b.weight;
+        if (parseInt(pesoA) < parseInt(pesoB)) return 1;
+        if (parseInt(pesoA) > parseInt(pesoB)) return -1;
+        return 0;
+      }) : filteredByWeight = [...state.filtered].sort(function (a, b) {
+        let pesoA, pesoB;
+        a.weight.imperial ? pesoA = a.weight.imperial: pesoA = a.weight;
+        b.weight.imperial ? pesoB = b.weight.imperial: pesoA = b.weight;
+        if (parseInt(pesoA) > parseInt(pesoB)) return 1;
+        if (parseInt(pesoA) < parseInt(pesoB)) return -1;
+        console.log('Peso A - mayor a menor', pesoA)
+        return 0;
+      })
+      console.log('filtered by weight reducer: ', filteredByWeight)
+
+      return {
+        ...state,
+        filtered: filteredByWeight
       }
 
     case GET_TEMPERAMENTS:
@@ -45,20 +83,26 @@ export default function rootReducer(state = initialState, action) {
         temperaments: action.payload
       }
 
-    case "DB":
+    case FILTER:
       return {
         ...state,
-        filter: state.dogsToShow.filter(b => b.id.length > 6).sort()
+        filtered: action.payload
       }
-    case "API":
+
+    case DB:
       return {
         ...state,
-        filter: state.dogsToShow.filter(b => b.id < 500).sort()
+        filtered: state.dogsToShow.filter(b => b.id.length > 6).sort()
       }
-    case "ALL":
+    case API:
       return {
         ...state,
-        filter: state.dogsToShow
+        filtered: state.dogsToShow.filter(b => typeof b.id === 'number').sort()
+      }
+    case ALL:
+      return {
+        ...state,
+        filtered: state.dogsToShow
       }
 
     default:

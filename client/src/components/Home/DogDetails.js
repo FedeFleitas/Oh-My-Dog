@@ -29,11 +29,6 @@ export default function DogDetails({ match }) {
     }
   }, [dogDetailsState]);
 
-  /* if (!dogDetailsState[0]) {
-    console.log('if...')
-    return (<h1>Please wait...</h1>)
-  } */
-
   if(dogDetailsState[0]){if (dogDetailsState[0].id.length > 4 && dogDetailsState[0].temperaments) {
     dogDetailsState[0].temperament = ""
     for (let i = 0; i < dogDetailsState[0].temperaments.length; i++) {

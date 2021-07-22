@@ -8,9 +8,10 @@ import logo from '../../img/loading....gif'
 
 export let Dogs = () => {
   //global states
-  const dogsToShow = useSelector((state) => state.dogsToShow);
+  const dogsToShow = useSelector((state) => state.filtered);
   const dispatch = useDispatch();
   console.log(dogsToShow)
+  useEffect(() => { dispatch(getDogs()) }, [])
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
@@ -23,7 +24,7 @@ export let Dogs = () => {
     setCurrentPage(Number(event.target.id))
   }
 
-  useEffect(() => { dispatch(getDogs()) }, [dispatch])
+
   if (typeof dogsToShow[0] === 'string') {
     return (
       <div>

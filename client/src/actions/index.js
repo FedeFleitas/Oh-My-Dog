@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const GET_DOGS = 'GET_DOGS', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS', GET_DOG_DETAILS = 'GET_DOG_DETAILS', ORDER_AL = 'ORDER_AL', FILTER_DOGS = 'FILTER_DOGS';
+export const GET_DOGS = 'GET_DOGS', ORDER_WEIGHT='ORDER WEIGHT', GET_TEMPERAMENTS = 'GET_TEMPERAMENTS', GET_DOG_DETAILS = 'GET_DOG_DETAILS', ALL = "ALL", DB = "DB", API="API", ORDER_AL = 'ORDER_AL', FILTER = 'FILTER';
 
 
 export let getDogs = (dog) => {
@@ -42,52 +42,48 @@ export function getTemperaments() {
     }
 }
 
-export let getAZ = () => {
-    return (dispatch) => {
-        return axios.get('http://localhost:3001/dogs')
-            .then((resp) => {
-                const order = resp.data.sort((a, b) => {
-                    if (a.name > b.name) return 1
-                    if (a.name < b.name) return -1
-                    return 0;
-                })
-                dispatch({
-                    type: ORDER_AL,
-                    payload: order
-                })
-            })
-
-    }
-};
-
 export let getZA = () => {
     return (dispatch) => {
-        return axios.get('http://localhost:3001/dogs')
-            .then((resp) => {
-                const order = resp.data.sort((b, a) => {
-                    if (a.name > b.name) return 1
-                    if (a.name < b.name) return -1
-                    return 0;
-                })
-                dispatch({
-                    type: ORDER_AL,
-                    payload: order
-                })
-            })
+        return dispatch({
+            type: ORDER_AL,
+            payload: 'ZA'
+        })
     }
 };
+export let getAZ = () => {
+    return (dispatch) => {
+        return dispatch({
+            type: ORDER_AL,
+            payload: 'AZ'
+        })
+    }
+};
+export let getWeight = (order) => {
+    return (dispatch) => {
+        return dispatch({
+            type: ORDER_WEIGHT,
+            payload: order
+        })
+    }
+};
+export function filterTemp(array) {
+    return {
+        type: FILTER,
+        payload: array
+    }
+  }
 export let getSource = (value) => {
-    if (value === "DB") {
+    if (value === DB) {
         return {
-            type: "DB",
+            type: DB,
         };
-    } else if (value === "API") {
+    } else if (value === API) {
         return {
-            type: "API",
+            type: API,
         };
-    } else if (value === "ALL") {
+    } else if (value === ALL) {
         return {
-            type: "ALL",
+            type: ALL,
         };
     }
 }

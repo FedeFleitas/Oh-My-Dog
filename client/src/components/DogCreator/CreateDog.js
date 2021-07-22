@@ -75,8 +75,8 @@ export default function CreateDog() {
     }
     console.log("selected: ", selected)
 
-    let totalHeight = `${input.minHeight} - ${input.maxHeight} ${input.typeHeight}`
-    let totalWeight = `${input.minWeight} - ${input.maxWeight} ${input.typeWeight}`
+    let totalHeight = `${input.minHeight} - ${input.maxHeight}`//${input.typeHeight}
+    let totalWeight = `${input.minWeight} - ${input.maxWeight}`//${input.typeWeight}
     console.log('CreateDog Types of measures: ', input.typeHeight)
 
     const createdDog = {
@@ -137,8 +137,8 @@ export default function CreateDog() {
               onChange={handleInputChange} />
 
             <select value={input.typeHeight} name='typeHeight' onChange={handleInputChange}>
-              <option name='typeHeight' value="Ft">In.</option>
-              <option name='typeHeight' value="Mt">Cm.</option>
+              <option name='typeHeight' value=" Ft">In</option>
+              <option name='typeHeight' value=" Cm">Cm</option>
               <option name='typeHeight' defaultValue value="">Select type</option>
             </select>
             {errors.minHeight && (<div className={styles.error} ><p className={styles.p} >{errors.minHeight}</p></div>)}
@@ -157,8 +157,8 @@ export default function CreateDog() {
               name="maxWeight" value={input.maxWeight}
               onChange={handleInputChange} />
             <select value={input.typeWeight} name='typeWeight' onChange={handleInputChange}>
-              <option name='typeWeight' value="Lb.">Pounds</option>
-              <option name='typeWeight' value="Kg.">Kg</option>
+              <option name='typeWeight' value=" Lb">Pounds</option>
+              <option name='typeWeight' value=" Kg">Kg</option>
               <option name='typeWeight' defaultValue value="">Select type</option>
             </select>
             <br />

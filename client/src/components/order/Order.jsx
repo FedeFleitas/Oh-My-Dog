@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { getAZ, getZA } from '../../actions'
-import { getSource } from '../../actions';
+import { getAZ, getZA, getWeight, getSource, filterTemp, getTemperaments } from '../../actions'
 import styles from './order.module.css';
 
 
 export default function Order() {
 
+    const temperaments = useSelector(state => state.temperaments)
+    const allDogs = useSelector(state => state.dogsToShow)
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getTemperaments())
+    }, [])
+
 
     //a-z
     let orderAsc = (e) => {
@@ -22,13 +29,38 @@ export default function Order() {
     }
 
     //menor peso
-    /* let orderDesc = (e) => {
+    let orderWeight = (e, orden) => {
         e.preventDefault()
-        dispatch(getZA())
-    } */
-    //mayor peso
+        dispatch(getWeight(orden))
+    }
 
     //temp
+    function handleChange(e) {
+        const selectedTemp = e.target.value;
+
+        let filtered = [];
+        console.log("value selc: ",e.target.value)
+
+        allDogs?.forEach((breed) => {
+            if (breed.id.length) {
+                breed.temperaments.map(temp => {
+                    console.log('temp.name',temp.name)
+                   return temp.name === selectedTemp ? filtered.push(breed) : null
+                })
+            } else {
+                if (breed.temperament?.includes(selectedTemp)) {
+                    filtered.push(breed)
+                    console.log('incluye', breed)
+                } else {
+                    console.log('nada')
+                }
+
+            }
+        })
+        console.log("filtered: ", filtered)
+        dispatch(filterTemp(filtered))
+    }
+
 
     //origen api / DB
     function handleSelect(e) {
@@ -44,29 +76,43 @@ export default function Order() {
         <>
             <div className={styles.order}>
                 <label >Order your dogs </label>
+
                 <div>
                     <label >By name: </label>
                     <button onClick={(e) => orderAsc(e)}>A-Z</button>
                     <button onClick={(e) => orderDesc(e)}>Z-A</button>
                 </div>
+
                 <div>
                     <label >By weight </label>
-                    <button onClick={(e) => orderAsc(e)}>Asc</button>
-                    <button onClick={(e) => orderDesc(e)}>Des</button>
+                    <button onClick={(e) => orderWeight(e, 'ASC')}>Asc</button>
+                    <button onClick={(e) => orderWeight(e, 'DES')}>Des</button>
                 </div>
+
                 <div>
                     <form>
                         <label className={styles.label}>Filter by  </label>
                         {/* <br /> */}
                         <select className={styles.select} onChange={handleSelect}>
-                            <option value="null">Select</option>
-                            <option value="DB">Created</option>
-                            <option value="API">Existing</option>
-                            <option value="API">Temperament</option>
+                            <option value="null"> Source </option>
+                            <option value="DB">DB</option>
+                            <option value="API">API</option>
                             <option value="ALL">ALL</option>
                         </select>
                     </form>
                 </div>
+
+                <div>
+                    <label className={styles.label}>Filter by temps </label><br />
+                    <select className={styles.select} onChange={handleChange} name="temperaments" >
+                        {temperaments?.map(temp => {
+                            return (
+                                <option key={temp} value={temp}>{temp}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+
             </div>
         </>
     )
