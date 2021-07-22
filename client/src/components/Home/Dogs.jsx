@@ -15,16 +15,16 @@ export let Dogs = () => {
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
-
-  const [maxPageNumberLimits, setMaxPageNumberLimits] = useState(5);
+  
+  const [maxPageNumberLimits, setMaxPageNumberLimits] = useState(5);//
   const [minPageNumberLimits, setMinPageNumberLimits] = useState(0);
-  const pageNumberLimits = 5;
+  const pageNumberLimits = 5; //para setear los estados min y max con el numero limite
 
   let handleClick = (event) => {
     setCurrentPage(Number(event.target.id))
   }
 
-
+  //si no hay perris, hay respuesta!!! :D
   if (typeof dogsToShow[0] === 'string') {
     return (
       <div>
@@ -34,27 +34,30 @@ export let Dogs = () => {
     )
   };
 
-
+  //les agrega el temperamento especifico a cada perro
   dogsToShow[0] && dogsToShow?.map((e) => {
     if (e.id.length > 4 && e.temperaments) {
       e.temperament = ""
-      for (let i = 0; i < e.temperaments.length; i++) {
-        e.temperament += e.temperaments[i].name.toString() + ", "
-      }
+      for (let i = 0; i < e.temperaments.length; i++) {//el dato que llega desde el back es un Array
+        e.temperament += e.temperaments[i].name.toString() + ", " 
+      }//paso a temperament cada uno, para que todos me queden con su temp
     }
   })
 
-  const PAGES = [];
+    //Logica matematica del paginado
+
+  const PAGES = []; //el numero de paginas a mostrar, 22 en el primer caso
   for (let i = 1; i <= Math.ceil(dogsToShow.length / itemsPerPage); i++) {
-    PAGES.push(i);
+    PAGES.push(i);//divide a los perris segun la cantidad que queremos mostrar
   }
 
+  //detecta en que index contar la pagina
   let indexOfLastItem = currentPage * itemsPerPage;
   let indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  let currentItems = dogsToShow.slice(indexOfFirstItem, indexOfLastItem)
+  let currentItems = dogsToShow.slice(indexOfFirstItem, indexOfLastItem)//los items que se muestran
 
+  //renderiza cada uno de los numeros de pagina necesarios
   let renderPageNumbers = PAGES.map((number) => {
-
     if (number > minPageNumberLimits && number < maxPageNumberLimits + 1) {
       return (
         <li key={number}
@@ -69,14 +72,15 @@ export let Dogs = () => {
     }
   })
 
-
+  //boton para volver a la pag previa
   const handlePrevButton = () => {
-    setCurrentPage(currentPage - 1)
+    setCurrentPage(currentPage - 1) //setea la actual pagina en la anterior
     if ((currentPage - 1) % pageNumberLimits === 0) {
       setMaxPageNumberLimits(maxPageNumberLimits - pageNumberLimits)
       setMinPageNumberLimits(minPageNumberLimits - pageNumberLimits)
     }
   }
+  //boton para ir a la sig. pagina
   const handleNextButton = () => {
     setCurrentPage(currentPage + 1)
     if (currentPage + 1 > maxPageNumberLimits) {
@@ -84,9 +88,9 @@ export let Dogs = () => {
       setMinPageNumberLimits(minPageNumberLimits + pageNumberLimits)
     }
   }
-
+//Los increment nos sirver para saber a simple vista si hay mas paginas por ver
   let pageIncrementButton = null;
-  if (PAGES.length > maxPageNumberLimits) {
+  if (PAGES.length > maxPageNumberLimits) {//&hellip unicode elipsis
     pageIncrementButton = <li onClick={handleNextButton}>&hellip;</li>
   }
   let pageDecrementButton = null;
@@ -95,6 +99,7 @@ export let Dogs = () => {
   }
 
   const handleLoadMore = () => {
+    //le agrega un plus a los que se van a mostrar
     setitemsPerPage(itemsPerPage + 4)
   }
 

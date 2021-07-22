@@ -30,6 +30,7 @@ export default function CreateDog() {
   }, [])
 
   useEffect(() => {
+    //gracias a esto podemos modificar cada temp y guardarlo en el estado como un objeto
     var tempts = []
     if (temperaments.length) {
       for (let i = 0; i < temperaments.length; i++) {
@@ -54,6 +55,7 @@ export default function CreateDog() {
   const handleCheckChange = (e) => {
     var checkName = e.target.name
     console.log("Check: ", checkName)
+    //busca al temp seleccionado en el estado y lo checkea en true
     for (let i = 0; i < temptsState.length; i++) {
       if (temptsState[i].name === checkName) {
         if (temptsState[i].checked === false) {
@@ -69,7 +71,8 @@ export default function CreateDog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var selected = []
+
+    var selected = []//aca se van a pushear los temps que esten en true
     for (let i = 0; i < temptsState.length; i++) {
       if (temptsState[i].checked === true) selected.push(temptsState[i].id + 1)
     }
