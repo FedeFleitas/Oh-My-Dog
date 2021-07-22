@@ -8,3 +8,25 @@
     right: 15%;
     font-size: 18px;
 }
+.input{
+    width: 200px;
+    border: 1px solid #131392;
+    border-radius: 2px;
+    padding: 5px;
+}
+.submit{
+    padding: 6px 10px 6px 10px;
+    background-color: transparent;
+    /* border: 1px solid wheat; */
+    border: 1px solid #131392;
+    border-radius: 3px;
+    /* color: wheat; */
+    color: #131392;
+    transition: all .5s;
+}
+.submit:hover {
+    padding: 8px 12px 6px 12px;
+    background-color: #131392;
+    color: wheat;
+    margin: -2px;
+}

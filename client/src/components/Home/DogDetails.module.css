@@ -9,6 +9,7 @@
     -webkit-justify-content: center;
             justify-content: center;
 }
+
 .dogDetails{
     display: inline-block;
     color: #131393;
@@ -65,6 +66,6 @@
     text-decoration: none;
 }
 .button:hover{
-    box-shadow: 0 0 28px rgba(255, 0, 0, 0.781);
+    box-shadow: 0 0 28px rgba(255, 240, 157, 0.781);
     
 }

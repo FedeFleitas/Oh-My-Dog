@@ -13,6 +13,10 @@
     margin-top: 10px;
     margin-bottom: 20px;
 }
+.dogs:hover{  
+        text-shadow: 0 0 3px #ffffff;
+    
+}
 .dogs img {
     height: 300px;
     width: 320px;
@@ -57,7 +61,8 @@
 }
 .pageNumbers li.button:hover {
     background-color:#000000;
-    color:#ffffff;
+    color:#ffffff; 
+    text-shadow: 0 0 3px #ffffff;
 }
 .loadmore {
     padding: 0.5rem;
