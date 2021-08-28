@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from './CreateDog.module.css';
 import { getTemperaments } from '../../actions'
 import { validate } from "./validation"
+import swal from 'sweetalert';
 
 export default function CreateDog() {
   //global state  
@@ -27,6 +28,7 @@ export default function CreateDog() {
 
   useEffect(() => {
     dispatch(getTemperaments())
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -91,8 +93,14 @@ export default function CreateDog() {
       temperaments: selected,
     }
 
-    if (Object.keys(errors).length > 0) return alert('Something went wrong. Please make sure all fields are filled in correctly');
-    if (!selected.length) return alert('Should choose at least one temperament!');
+    if (Object.keys(errors).length > 0){
+      swal("Oops!", 'Something went wrong. Please make sure all fields are filled in correctly', "error");
+    } 
+
+    if (!selected.length){ 
+
+      return swal("Oops!", 'Should choose at least one temperament!', "error");
+    }
 
     temptsState.map(e => e.checked === true ? e.checked = false : null)
 
@@ -109,7 +117,7 @@ export default function CreateDog() {
     })
 
     await axios.post("http://localhost:3001/dog", createdDog)
-      .then(alert("Your Dog has been created successfully!"))
+      .then(swal("Great!", "Your Dog has been created successfully!", "success"))
   };
 
   return (

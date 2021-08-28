@@ -1,6 +1,5 @@
 import React, { useState,  } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-//import { NavLink } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
 import { getDogs } from "../../actions";
 import style from './SearchBar.module.css';
 

@@ -11,11 +11,14 @@ export let Dogs = () => {
   const dogsToShow = useSelector((state) => state.filtered);
   const dispatch = useDispatch();
   console.log(dogsToShow)
-  useEffect(() => { dispatch(getDogs()) }, [])
+  useEffect(() => {
+    dispatch(getDogs())
+    // eslint-disable-next-line
+  }, [])
   //local states
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setitemsPerPage] = useState(8)
-  
+
   const [maxPageNumberLimits, setMaxPageNumberLimits] = useState(5);//
   const [minPageNumberLimits, setMinPageNumberLimits] = useState(0);
   const pageNumberLimits = 5; //para setear los estados min y max con el numero limite
@@ -35,16 +38,16 @@ export let Dogs = () => {
   };
 
   //les agrega el temperamento especifico a cada perro
-  dogsToShow[0] && dogsToShow?.map((e) => {
+  dogsToShow[0] && dogsToShow?.forEach((e) => {
     if (e.id.length > 4 && e.temperaments) {
       e.temperament = ""
       for (let i = 0; i < e.temperaments.length; i++) {//el dato que llega desde el back es un Array
-        e.temperament += e.temperaments[i].name.toString() + ", " 
+        i === e.temperaments.length - 1 ? e.temperament += e.temperaments[i].name.toString() : e.temperament += e.temperaments[i].name.toString() + ", "
       }//paso a temperament cada uno, para que todos me queden con su temp
     }
   })
 
-    //Logica matematica del paginado
+  //Logica matematica del paginado
 
   const PAGES = []; //el numero de paginas a mostrar, 22 en el primer caso
   for (let i = 1; i <= Math.ceil(dogsToShow.length / itemsPerPage); i++) {
@@ -88,7 +91,7 @@ export let Dogs = () => {
       setMinPageNumberLimits(minPageNumberLimits + pageNumberLimits)
     }
   }
-//Los increment nos sirver para saber a simple vista si hay mas paginas por ver
+  //Los increment nos sirver para saber a simple vista si hay mas paginas por ver
   let pageIncrementButton = null;
   if (PAGES.length > maxPageNumberLimits) {//&hellip unicode elipsis
     pageIncrementButton = <li onClick={handleNextButton}>&hellip;</li>
@@ -106,8 +109,7 @@ export let Dogs = () => {
 
   return (
     <div>
-      {console.log(currentItems),
-        PaginationRender(currentItems)}
+      {PaginationRender(currentItems)}
       <ul className={styles.pageNumbers}>
         <li>
           <button onClick={handlePrevButton}

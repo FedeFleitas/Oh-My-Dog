@@ -12,7 +12,8 @@ export default function DogDetails({ match }) {
 
   useEffect(() => {
     dispatch(getDogDetails(match.params.id))
-  }, [dispatch])
+    // eslint-disable-next-line
+  }, [])
 
   const dogDetailsState = useSelector(state => state.dogDetails);
   console.log('state dd: ', dogDetailsState)
@@ -27,6 +28,7 @@ export default function DogDetails({ match }) {
         setFoundDog(true)
       }
     }
+    // eslint-disable-next-line
   }, [dogDetailsState]);
 
   if(dogDetailsState[0]){if (dogDetailsState[0].id.length > 4 && dogDetailsState[0].temperaments) {

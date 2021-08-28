@@ -12,7 +12,7 @@ export default function rootReducer(state = initialState, action) {
     case GET_DOGS:
       if (typeof action.payload[0] != 'string') {
         let pay = [...action.payload];
-        pay.map((dog) => {
+        pay.forEach((dog) => {
           if (!dog.image && dog.reference_image_id) {
             let image_id = dog.reference_image_id;
             dog.image = `https://cdn2.thedogapi.com/images/${image_id}.jpg`
