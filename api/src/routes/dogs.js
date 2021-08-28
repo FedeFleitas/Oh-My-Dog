@@ -31,12 +31,12 @@ router.get('/', async (req, res, next) => {
             let api = await axios.get(`${API}?api_key=${API_KEY}`);
             console.log('entre a /Dogs')
 
-            Promise.all([db, api])
-                .then((response) => {
-                    const [dbResponse, apiResponse] = response;
-                    const breeds = dbResponse.concat(apiResponse.data);
-                    res.send(breeds);
-                });
+            let response = await Promise.all([db, api])
+            const [dbResponse, apiResponse] = response;
+            const breeds = dbResponse.concat(apiResponse.data);
+
+            res.send(breeds);
+           
         } else {
             let db = await Dog.findAll({
                 where: {
@@ -56,15 +56,13 @@ router.get('/', async (req, res, next) => {
                 }
             });
             let api = await axios.get(`${API}/search?name=${name}&api_key=${API_KEY}`);
-            console.log('entre a /Dogs queryyy')
-
-            Promise.all([db, api])
-                .then((response) => {
-                    const [dbResponse, apiResponse] = response;
-                    const breeds = dbResponse.concat(apiResponse.data);
-                    console.log(breeds)
-                    breeds.length > 0 ? res.send([...breeds]) : res.send(['Breed Not Found']);
-                });
+            console.log('entre a /Dogs query')
+                
+            let response = await Promise.all([db, api])
+            const [dbResponse, apiResponse] = response;
+            const breeds = dbResponse.concat(apiResponse.data);
+            breeds.length > 0 ? res.send([...breeds]) : res.send(['Breed Not Found']);
+              
         }
     } catch (err) {
         res.send('Error desconocido')

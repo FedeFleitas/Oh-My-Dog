@@ -6,7 +6,12 @@ const { Dog, conn } = require('../../src/db.js');
 
 const agent = session(app);
 const dog = {
+  id: 15,
   name: 'Pug',
+  height: '12',
+  weight: '15',
+  life_span: '15',
+  image: 'www.henry.com',
 };
 
 describe('Videogame routes', () => {
@@ -16,9 +21,9 @@ describe('Videogame routes', () => {
   }));
   beforeEach(() => Dog.sync({ force: true })
     .then(() => Dog.create(dog)));
-  describe('GET /dogs', () => {
-    it('should get 200', () =>
-      agent.get('/dogs').expect(200)
+  describe('POST /dog does not work without uuid', () => {
+    xit('should get error', () =>
+      agent.get('/dog').expect(404)
     );
   });
 });
